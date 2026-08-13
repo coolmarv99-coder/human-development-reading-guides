@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 3 Interactive Reading Guide</title>
+<style>
+:root{
+  --navy:#0b2f57; --green:#187a4d; --green2:#2d9a68; --ink:#172033; --muted:#5c6678;
+  --cream:#fff8e8; --lav:#f6f1ff; --blue:#eef7ff; --mint:#eefaf4; --gold:#f4b942;
+  --border:#d8deea; --shadow:0 8px 24px rgba(22,32,51,.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f5f7fb;color:var(--ink);line-height:1.5}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #4e9cf5;outline-offset:2px}
+.sitebar{background:var(--navy);color:#fff;padding:14px 20px}
+.sitebar-inner{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.logo{width:42px;height:42px;border:2px solid #fff;border-radius:12px;display:grid;place-items:center}
+.small{font-size:.9rem;color:var(--muted)}
+.sitebar .small{color:#d9e6f5}
+main{max-width:1180px;margin:0 auto;padding:28px 18px 60px}
+.hero{display:flex;justify-content:space-between;gap:24px;align-items:end;flex-wrap:wrap}
+h1{font-size:clamp(2rem,4vw,3rem);line-height:1.05;margin:.1em 0}
+.subtitle{font-size:1.08rem;margin:0;color:#39445a}
+.progress-wrap{min-width:260px}
+.progress-line{height:10px;background:#d9dee7;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green),#40a88a);transition:width .35s ease}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0}
+.step{background:#fff;border:1px solid var(--border);border-radius:999px;padding:11px 12px;text-align:center;font-weight:650;color:#667085}
+.step.active{background:#eaf7e8;color:#165d3d;border-color:#b9dfc5}
+.step.done{background:#eaf7f1;color:#176847}
+.card{background:#fff;border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.story{display:grid;grid-template-columns:minmax(280px,42%) 1fr;background:linear-gradient(110deg,#fff5d9,#fffaf1)}
+.story img{width:100%;height:100%;min-height:320px;object-fit:cover}
+.story-copy{padding:30px}
+.kicker{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#7b5a13}
+h2{font-size:1.55rem;margin:.25em 0 .5em}
+h3{font-size:1.18rem;margin:0 0 12px}
+.story-note{background:rgba(255,255,255,.72);border-left:5px solid var(--gold);padding:14px 16px;border-radius:12px;margin-top:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.activity{padding:24px}
+.purple{background:linear-gradient(180deg,#fff,#faf7ff)}
+.blue{background:linear-gradient(180deg,#fff,#f5fbff)}
+.question{font-weight:700;margin-bottom:14px}
+.options{display:grid;gap:10px}
+.option{display:flex;gap:12px;align-items:flex-start;border:1px solid #ccd3df;border-radius:13px;padding:12px;background:#fff}
+.option.correct{border-color:#5cae7b;background:#ecf9f0}
+.option.incorrect{border-color:#d98f8f;background:#fff1f1}
+.feedback{display:none;margin-top:14px;padding:13px 15px;border-radius:13px;background:#edf9f1;border:1px solid #acd7b9}
+.feedback.show{display:block}
+.match-row{display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:center;margin:10px 0}
+.term{font-weight:750;background:#edf5ff;border:1px solid #a7c5ef;border-radius:10px;padding:10px}
+select{width:100%;padding:10px;border:1px solid #bac4d3;border-radius:10px;background:#fff}
+.match-result{margin-top:14px}
+.btn{border:none;border-radius:12px;padding:12px 18px;font-weight:750;background:var(--green);color:#fff;box-shadow:0 4px 12px rgba(24,122,77,.2)}
+.btn.secondary{background:#fff;color:var(--navy);border:1px solid #aeb9c8;box-shadow:none}
+.resource-link{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:12px;padding:11px 15px;font-weight:750;background:#fff;color:var(--navy);border:1px solid #9fb0c5}
+.resource-link:hover{text-decoration:underline;background:#f7fbff}
+.resource-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:18px 0;padding:16px 18px;border:1px solid #b9c9dc;border-radius:18px;background:#eef6ff}
+.resource-bar p{margin:0}
+.resource-mini{margin-top:14px;padding-top:14px;border-top:1px dashed #bdc8d8}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.concept-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:18px}
+.concept{padding:18px;border-radius:18px;border:1px solid var(--border);background:#fff}
+.concept strong{display:block;margin-bottom:6px}
+.reflection{margin-top:18px;padding:24px;background:linear-gradient(135deg,#f1fbf4,#fff)}
+textarea{width:100%;min-height:120px;border:1px solid #bbc5d3;border-radius:14px;padding:14px;resize:vertical}
+.compare-panel{display:none;margin-top:18px}
+.compare-panel.show{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.compare-box{border-radius:18px;padding:18px;border:1px solid var(--border)}
+.compare-box:nth-child(1){background:#fff8df}
+.compare-box:nth-child(2){background:#edf9f5}
+.compare-box:nth-child(3){background:#f4efff}
+.complete{display:none;margin-top:18px;padding:20px;background:#eaf8f1;border:1px solid #a9d9bf;border-radius:18px;align-items:center;justify-content:space-between;gap:14px}
+.complete.show{display:flex}
+.badge{display:inline-block;background:#e8f5ee;color:#176847;border-radius:999px;padding:5px 10px;font-weight:800;font-size:.82rem}
+.image-note{font-size:.82rem;color:#687386;margin-top:8px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:850px){
+ .story,.grid2{grid-template-columns:1fr}
+ .story img{min-height:230px;max-height:340px}
+ .concept-strip,.compare-panel.show{grid-template-columns:1fr}
+ .steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px){
+ main{padding:18px 12px 40px}
+ .sitebar{padding:10px 12px}
+ .steps{grid-template-columns:1fr}
+ .step{text-align:left}
+ .match-row{grid-template-columns:1fr}
+ .activity,.reflection,.story-copy{padding:18px}
+ .complete.show{align-items:flex-start;flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.progress-fill{transition:none}}
+</style>
+</head>
+<body>
+<header class="sitebar">
+  <div class="sitebar-inner">
+    <div class="brand"><div class="logo" aria-hidden="true">HD</div><div>Human Development<div class="small">Interactive Reading Guide</div></div></div>
+    <div class="small">Module 3 • OpenStax Chapter 4</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <div>
+      <span class="badge">Low-stakes self-check</span>
+      <h1 id="page-title">Infants &amp; Toddlers: Social and Emotional Development</h1>
+      <p class="subtitle">Explore autonomy, temperament, emotion, attachment, and the social contexts that shape early development.</p>
+    </div>
+    <div class="progress-wrap" aria-label="Guide progress">
+      <div style="display:flex;justify-content:space-between;margin-bottom:7px"><strong>Overall progress</strong><span id="progressText">0%</span></div>
+      <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </section>
+
+  <nav class="steps" aria-label="Guide sections">
+    <a class="step active" href="#story">1. Maya’s Story</a>
+    <a class="step" href="#explore">2. Explore</a>
+    <a class="step" href="#check">3. Check Understanding</a>
+    <a class="step" href="#reflect">4. Compare My Thinking</a>
+  </nav>
+
+  <aside class="resource-bar" aria-label="OpenStax chapter resource">
+    <p><strong>Keep the chapter nearby.</strong><br><span class="small">The guide is a companion to the reading—not a replacement for it.</span></p>
+    <a class="resource-link" href="https://openstax.org/books/lifespan-development/pages/4-what-does-psychology-say" target="_blank" rel="noopener noreferrer">📖 Open Chapter 4 in OpenStax</a>
+  </aside>
+
+  <section id="story" class="card story">
+    <img src="images/maya-module3.jpg" alt="Maya observing a warm caregiver-child interaction">
+    <div class="story-copy">
+      <div class="kicker">Maya’s Story</div>
+      <h2>Seeing development in ordinary moments</h2>
+      <p>During a child development center observation, Maya watches a toddler stand in front of a low mirror. At first, the child smiles and waves at the “baby” in the reflection. Then the caregiver points to a sticker on the toddler’s shirt and says, “That’s you!” The toddler looks down, touches the sticker, and laughs.</p>
+      <p>Later, Maya sees the same toddler insist on carrying a small cup to the table without help. The caregiver stays close, offers encouragement, and lets the child try.</p>
+      <div class="story-note"><strong>As you read:</strong> Notice how emerging self-awareness, autonomy, temperament, emotion, and responsive relationships work together.</div>
+      <div class="btn-row"><button class="btn" id="storyDone">I’m ready to explore</button></div>
+    </div>
+  </section>
+
+  <section id="explore" class="grid2">
+    <article class="card activity purple">
+      <h3>🔎 Notice the concept</h3>
+      <img src="images/caregiver-infant.jpg" alt="Caregiver responding warmly to an infant" style="width:100%;height:190px;object-fit:cover;border-radius:14px;margin-bottom:14px">
+      <p class="question">A caregiver calmly rocks a crying infant until the infant’s body relaxes. Which idea is best illustrated?</p>
+      <div class="options" id="mcq1">
+        <label class="option"><input type="radio" name="q1" value="a"> Autonomy, primarily.</label>
+        <label class="option"><input type="radio" name="q1" value="c"> Mirror self-recognition</label>
+        <label class="option"><input type="radio" name="q1" value="b"> Co-regulation, primarily.</label>
+        <label class="option"><input type="radio" name="q1" value="d"> Stranger wariness</label>
+      </div>
+      <div class="btn-row"><button class="btn" id="checkQ1">Check my thinking</button></div>
+      <div class="feedback" id="feedbackQ1" aria-live="polite"></div>
+      <div class="resource-mini">
+        <a class="resource-link" href="https://openstax.org/books/lifespan-development/pages/4-3-emotional-development-in-infants-and-toddlers" target="_blank" rel="noopener noreferrer">📖 Review 4.3: Emotional Development</a>
+      </div>
+    </article>
+
+    <article class="card activity blue">
+      <h3>🧩 Match it up</h3>
+      <p>Match each concept with its best description.</p>
+      <div class="match-row"><div class="term">Goodness of fit</div><select data-answer="fit" aria-label="Description for goodness of fit"><option value="">Choose…</option><option value="secure">A trusted caregiver supports exploration</option><option value="fit">Caregiving adjusts to the child’s temperament</option><option value="reference">A child checks an adult’s reaction</option><option value="autonomy">A toddler tries a task independently</option></select></div>
+      <div class="match-row"><div class="term">Secure base</div><select data-answer="secure" aria-label="Description for secure base"><option value="">Choose…</option><option value="secure">A trusted caregiver supports exploration</option><option value="fit">Caregiving adjusts to the child’s temperament</option><option value="reference">A child checks an adult’s reaction</option><option value="autonomy">A toddler tries a task independently</option></select></div>
+      <div class="match-row"><div class="term">Social referencing</div><select data-answer="reference" aria-label="Description for social referencing"><option value="">Choose…</option><option value="secure">A trusted caregiver supports exploration</option><option value="fit">Caregiving adjusts to the child’s temperament</option><option value="reference">A child checks an adult’s reaction</option><option value="autonomy">A toddler tries a task independently</option></select></div>
+      <div class="match-row"><div class="term">Autonomy</div><select data-answer="autonomy" aria-label="Description for autonomy"><option value="">Choose…</option><option value="secure">A trusted caregiver supports exploration</option><option value="fit">Caregiving adjusts to the child’s temperament</option><option value="reference">A child checks an adult’s reaction</option><option value="autonomy">A toddler tries a task independently</option></select></div>
+      <div class="btn-row"><button class="btn" id="checkMatch">Check matches</button><button class="btn secondary" id="resetMatch">Reset</button></div>
+      <div class="feedback match-result" id="matchFeedback" aria-live="polite"></div>
+      <div class="resource-mini">
+        <a class="resource-link" href="https://openstax.org/books/lifespan-development/pages/4-4-social-development-in-infants-and-toddlers" target="_blank" rel="noopener noreferrer">📖 Review 4.4: Social Development</a>
+      </div>
+    </article>
+  </section>
+
+  <section id="check" class="concept-strip" aria-label="Key ideas">
+    <div class="concept"><strong>🌱 Temperament is not “good” or “bad.”</strong>It describes early differences in reactivity, activity, attention, and regulation.</div>
+    <div class="concept"><strong>🤝 Independence still needs support.</strong>Toddlers develop autonomy when adults offer safe choices, patient limits, and room to try.</div>
+    <div class="concept"><strong>🏠 Relationships provide security.</strong>Responsive caregivers help children regulate emotion and explore from a secure base.</div>
+  </section>
+
+  <section class="card activity" style="margin-top:18px">
+    <h3>Check your understanding</h3>
+    <p class="question">An infant crawls toward a new toy, pauses, looks back at the caregiver, sees the caregiver smile, and continues. Which two concepts are most visible?</p>
+    <div class="options" id="mcq2">
+      <label class="option"><input type="radio" name="q2" value="b"> Secure-base behavior and social referencing</label>
+      <label class="option"><input type="radio" name="q2" value="a"> Primary emotions and gender socialization</label>
+      <label class="option"><input type="radio" name="q2" value="c"> Mirror recognition and stranger wariness</label>
+      <label class="option"><input type="radio" name="q2" value="d"> Autonomy and ecological systems, primarily.</label>
+    </div>
+    <div class="btn-row"><button class="btn" id="checkQ2">Check my thinking</button></div>
+    <div class="feedback" id="feedbackQ2" aria-live="polite"></div>
+  </section>
+
+  <aside class="resource-bar" aria-label="OpenStax review resources">
+    <p><strong>Need a quick review?</strong><br><span class="small">Use the chapter summary or vocabulary list before the final reflection.</span></p>
+    <div class="btn-row" style="margin-top:0">
+      <a class="resource-link" href="https://openstax.org/books/lifespan-development/pages/4-summary" target="_blank" rel="noopener noreferrer">📚 Chapter 4 Summary</a>
+      <a class="resource-link" href="https://openstax.org/books/lifespan-development/pages/4-key-terms" target="_blank" rel="noopener noreferrer">🔑 Chapter 4 Key Terms</a>
+    </div>
+  </aside>
+
+  <section id="reflect" class="card reflection">
+    <div class="kicker">Final reflection</div>
+    <h2>Complete this sentence</h2>
+    <p><strong>One important idea I am taking from this chapter is that infants and toddlers develop socially and emotionally through…</strong></p>
+    <label for="reflectionText" class="sr-only">Your reflection</label>
+    <textarea id="reflectionText" placeholder="Type a few words or sentences. This response is for your own thinking and is not graded."></textarea>
+    <div class="btn-row"><button class="btn" id="compareBtn">Compare My Thinking</button></div>
+
+    <div class="compare-panel" id="comparePanel" aria-live="polite">
+      <div class="compare-box"><h3>💡 The chapter emphasizes…</h3><p>There is no single correct response. OpenStax emphasizes that social-emotional development grows through the interaction of the child’s emerging abilities, temperament, relationships, culture, and everyday experiences.</p></div>
+      <div class="compare-box"><h3>💭 Consider…</h3><p>Did your response include both the child and the caregiving environment? Infants and toddlers are active participants, but they still depend heavily on adults for co-regulation, security, and support.</p></div>
+      <div class="compare-box"><h3>⭐ Add to your thinking…</h3><p>Responsive care does not require every family to follow one identical routine. Warmth, reliability, cultural context, safe limits, and a good fit with the child all matter.</p></div>
+    </div>
+  </section>
+
+  <div class="complete" id="completeBox">
+    <div><strong>🌟 You did it!</strong><br><span class="small">The chapter becomes easier when you pause, test an idea, and compare your thinking with the reading.</span></div>
+    <button class="btn" id="restartBtn">Restart guide</button>
+  </div>
+</main>
+
+<script>
+function hdShuffle(items){for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]]}return items}
+document.querySelectorAll('.options').forEach(group=>{hdShuffle([...group.children]).forEach(item=>group.appendChild(item))});
+document.querySelectorAll('select[data-answer]').forEach(select=>{const placeholder=select.querySelector('option[value=""]');const choices=[...select.options].filter(option=>option.value!=="");hdShuffle(choices).forEach(option=>select.appendChild(option));if(placeholder)select.insertBefore(placeholder,select.firstChild)});
+
+const state = {story:false,q1:false,match:false,q2:false,reflect:false};
+const steps = [...document.querySelectorAll('.step')];
+function updateProgress(){
+  const done = Object.values(state).filter(Boolean).length;
+  const pct = Math.round(done/5*100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '%';
+  steps.forEach((s,i)=>{
+    s.classList.toggle('done', i < Math.min(4, Math.ceil(done*4/5)));
+    s.classList.toggle('active', i === Math.min(3, Math.floor(done*4/5)));
+  });
+  if(done===5) document.getElementById('completeBox').classList.add('show');
+}
+document.getElementById('storyDone').addEventListener('click',()=>{
+  state.story=true; updateProgress(); document.getElementById('explore').scrollIntoView({behavior:'smooth'});
+});
+function checkRadio(name, correct, feedbackId, key, success, retry){
+  const chosen=document.querySelector(`input[name="${name}"]:checked`);
+  const feedback=document.getElementById(feedbackId);
+  document.querySelectorAll(`input[name="${name}"]`).forEach(i=>i.closest('.option').classList.remove('correct','incorrect'));
+  if(!chosen){feedback.textContent='Choose an answer first, then check your thinking.';feedback.classList.add('show');return;}
+  const ok=chosen.value===correct;
+  chosen.closest('.option').classList.add(ok?'correct':'incorrect');
+  feedback.innerHTML=ok?success:retry;
+  feedback.classList.add('show');
+  if(ok){state[key]=true;updateProgress();}
+}
+document.getElementById('checkQ1').addEventListener('click',()=>checkRadio('q1','b','feedbackQ1','q1',
+  '<strong>Good thinking!</strong> The adult is helping the infant settle; this is co-regulation.',
+  '<strong>Try again.</strong> Focus on what the adult is doing to help the infant manage a strong emotion.'));
+document.getElementById('checkQ2').addEventListener('click',()=>checkRadio('q2','b','feedbackQ2','q2',
+  '<strong>Exactly.</strong> The caregiver serves as a secure base, and the infant uses the caregiver’s expression to interpret the situation.',
+  '<strong>Try again.</strong> Notice both the infant’s exploration and the quick check of the caregiver’s emotional cue.'));
+document.getElementById('checkMatch').addEventListener('click',()=>{
+  const selects=[...document.querySelectorAll('.match-row select')];
+  const completed=selects.every(s=>s.value);
+  const correct=selects.filter(s=>s.value===s.dataset.answer).length;
+  const box=document.getElementById('matchFeedback');
+  if(!completed){box.textContent='Complete all four matches first.';box.classList.add('show');return;}
+  box.innerHTML=correct===4?'<strong>Nice work!</strong> All four concepts are matched correctly.':`You matched <strong>${correct} of 4</strong> correctly. Recheck the ideas and try again.`;
+  box.classList.add('show');
+  if(correct===4){state.match=true;updateProgress();}
+});
+document.getElementById('resetMatch').addEventListener('click',()=>{
+  document.querySelectorAll('.match-row select').forEach(s=>s.value='');
+  document.getElementById('matchFeedback').classList.remove('show');
+});
+document.getElementById('compareBtn').addEventListener('click',()=>{
+  document.getElementById('comparePanel').classList.add('show');
+  state.reflect=true;updateProgress();
+  document.getElementById('comparePanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+document.getElementById('restartBtn').addEventListener('click',()=>{
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>location.reload(),350);
+});
+updateProgress();
+</script>
+</body>
+</html>
